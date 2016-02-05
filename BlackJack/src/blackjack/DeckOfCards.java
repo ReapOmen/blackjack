@@ -8,6 +8,9 @@ public class DeckOfCards {
 	private String type[] = {"Clubs" , "Diamonds" , "Hearts" , "Spades"};
 	private ArrayList<Card> deck;
 
+	/*
+	 * Creates a deck of cards.
+	 */
 	public DeckOfCards() {
 		
 		deck = new ArrayList<Card>();		
@@ -23,6 +26,9 @@ public class DeckOfCards {
 		}
 	}
 
+	/*
+	 * Shuffles the deck of cards.
+	 */
 	public void shuffle() {
 		
 		Random rnd = new Random();		
@@ -33,6 +39,9 @@ public class DeckOfCards {
 		}
 	}
 	
+	/*
+	 * Prints out the deck on console.
+	 */
 	public void getDeck() {
 		
 		for(Card i : deck)
@@ -40,6 +49,10 @@ public class DeckOfCards {
 
 	}
 
+	/*
+	 * Deals a card, which then is removed from the deck.
+	 * @return the card that was dealt.
+	 */
 	public Card deal() {
 		
 		if(deck.isEmpty())
