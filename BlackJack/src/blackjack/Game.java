@@ -10,6 +10,12 @@ public class Game {
 	private boolean turnOfPlayer1, winner;
 	private Frame frame;
 
+	/* 
+	 * Constructs a BlackJack game with a GUI.
+	 * @param p1 The first player that will play.
+	 * @param p2 The 2nd player that will play, in this case the computer.
+	 * @param f The frame to which the game will print the progress.
+	 */
 	public Game(Player p1, Player p2, Frame f) {
 		
 		deck = new DeckOfCards();
@@ -24,12 +30,16 @@ public class Game {
 		
 	}
 	
+	/*
+	 * Plays a card in the BlackJack game.
+	 */
 	public void play() {
 		
 		if(turnOfPlayer1)
 			player1.hit();
 		else {
 			
+			//the computer will try to beat the player.
 			while(player2.getScore() <= 21 
 					&& player2.getScore() < player1.getScore()) {
 				
@@ -43,6 +53,10 @@ public class Game {
 		
 	}
 	
+	/*
+	 * Checks for the last card played on the board.
+	 * @return a String representations of the last card played.
+	 */
 	public String getLastCardPlayed() {
 		
 		if(turnOfPlayer1)
@@ -53,6 +67,11 @@ public class Game {
 		
 	}
 	
+	/*
+	 * Generates and returns a list of cards of a certain player.
+	 * @param human If the player is human or the computer, aka player2.
+	 * @return a list of cards in it's string representation.
+	 */
 	public List<String> getCards(boolean human) {
 		
 		ArrayList<Card> cards = null;
@@ -73,6 +92,10 @@ public class Game {
 		
 	}
 	
+	
+	/*
+	 * Changes the turn from player1 to the other one.
+	 */
 	public void stop() {
 		
 		turnOfPlayer1 = false;
@@ -80,6 +103,9 @@ public class Game {
 		
 	}
 	
+	/*
+	 * Resets the game.
+	 */
 	public void reset() {
 		
 		deck = new DeckOfCards();
@@ -91,6 +117,9 @@ public class Game {
 		frame.reset();
 	}
 	
+	/*
+	 * Checks if there is a winner. If there is it will inform the GUI.
+	 */
 	public void checkWinner() {
 		
 		if(!winner) {
@@ -128,6 +157,11 @@ public class Game {
 		
 	}
 	
+	/*
+	 * Returns the score of a player.
+	 * @param human True if you need the score of the user, or false for the computer.
+	 * @return a string representation of the score of one player.
+	 */
 	public String getScore(boolean human) {
 		
 		if(human)

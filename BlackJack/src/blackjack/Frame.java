@@ -22,6 +22,9 @@ public class Frame extends JFrame {
 	private JLabel jlPlayer1Score, jlPlayer2Score;
 	private ArrayList<String> cards;
 	
+	/**
+	 * Constructs the main window of the BlackJack game.
+	 */
 	public Frame() {
 		
 		super("BlackJack");
@@ -49,35 +52,40 @@ public class Frame extends JFrame {
 		setVisible(true);
 		
 	}
-	
+	/**
+	 * Creates the buttons of Player1 and also the Score label.
+	 */
 	private void createPlayer1() {
 		
 		
 		//player1 buttons
-		jbHit = new JButton("Hit");
-		jbStop = new JButton("Stop");
+		jbHit = new JButton("Hit"); // hit buttons
+		jbStop = new JButton("Stop"); // stop button
 		jbHit.addActionListener(new Handler());
-		jbStop.addActionListener(new Handler());
-		jpPlayer1.add(jbHit);
+		jbStop.addActionListener(new Handler()); //adding handlers
+		jpPlayer1.add(jbHit); // adding them to the frame
 		jpPlayer1.add(jbStop);
 
 		//adding score to player 1
-		jlPlayer1Score = new JLabel(game.getScore(true));
+		jlPlayer1Score = new JLabel(game.getScore(true)); // adding score label
 		jpPlayer1.add(jlPlayer1Score);
 		
-		add(jpPlayer1, BorderLayout.SOUTH);
+		add(jpPlayer1, BorderLayout.SOUTH); // add them to the bottom part of the frame
 		
 		//panel which contains the cards of player1
 		jpPlayer1Cards = new JPanel();
 		jpPlayer1Cards.setLayout(new FlowLayout());
 		
-		printCardsPlayer1();
+		printCardsPlayer1(); 
 		
 		jpCards.add(jpPlayer1Cards, BorderLayout.SOUTH);
 
 		
 	}
 	
+	/*
+	 * Asking the Game class to provide me with the cards of Player1.
+	 */
 	private void printCardsPlayer1() {
 		
 		//adding cards to players1 panel
@@ -90,9 +98,12 @@ public class Frame extends JFrame {
 		
 	}
 	
+	/*
+	 * Creating player 2 with a score label.
+	 * 
+	 */
 	private void createPlayer2() {
 			
-		//adding utilities to computer aka player2
 		jlPlayer2Score = new JLabel(game.getScore(false));
 		jpPlayer2.add(jlPlayer2Score);
 		
@@ -109,9 +120,12 @@ public class Frame extends JFrame {
 
 	}
 	
+	/*
+	 * Same as above but for player2.
+	 */
 	private void printCardsPlayer2() {
 		
-		//adding cards to players1 panel
+		//adding cards to players2 panel
 		cards = (ArrayList<String>) game.getCards(false);
 		for(String s : cards) {
 						
@@ -121,6 +135,9 @@ public class Frame extends JFrame {
 		
 	}
 	
+	/*
+	 * If a card is played, the game will notify the GUI to print that card to the frame.
+	 */
 	public void recordCard() {
 		
 		jpPlayer2Cards.add(new JLabel(game.getLastCardPlayed()), BorderLayout.SOUTH);
@@ -129,27 +146,33 @@ public class Frame extends JFrame {
 		
 	}
 	
+	/*
+	 * Simple handler for the buttons.
+	 */
 	private class Handler implements ActionListener {
 		
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource() == jbHit) {
 				
-				game.play();
+				game.play(); // If a player wants to hit, the game continues.
 
 				jpPlayer1Cards.add(new JLabel(game.getLastCardPlayed()), BorderLayout.SOUTH);
 				repaint();
 				jlPlayer1Score.setText(game.getScore(true)); 
 				game.checkWinner();
 			}
-			else
+			else // if the players presses the stop button.
 				game.stop();
 			
 		}
 		
 	}
 	
-	public void reset() {
+	/*
+	 * Resets the GUI when the game is finished.
+	 */
+	protected void reset() {
 		
 		jlPlayer1Score.setText(game.getScore(true));
 		jlPlayer2Score.setText(game.getScore(false));
@@ -164,6 +187,10 @@ public class Frame extends JFrame {
 
 		
 	}
+	
+	/*
+	 * Let's the user know if a player wins the game.
+	 */
 	
 	public void printWinner(Player player) {
 		
