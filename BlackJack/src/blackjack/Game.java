@@ -95,19 +95,33 @@ public class Game {
 		
 		if(!winner) {
 		
-			if( player1.getScore() > 21)
+			if( player1.getScore() > 21) {
+					
 				frame.printWinner(player2);
+				reset();
+
+			}
+			
 			else
 				if(!turnOfPlayer1) {
 					
-					if(player2.getScore() > 21)
+					if(player2.getScore() > 21) {
+						
 						frame.printWinner(player1);
+						reset();
+					}
 					else
-						if(player1.getScore() > player2.getScore())
+						if(player1.getScore() > player2.getScore()) {
+							
 							frame.printWinner(player1);
-						else
+							reset();
+
+						}
+						else {
+							
 							frame.printWinner(player2);
-				
+							reset();
+						}
 					
 				}
 		}

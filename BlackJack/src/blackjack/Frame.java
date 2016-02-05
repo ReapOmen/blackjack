@@ -168,7 +168,6 @@ public class Frame extends JFrame {
 	public void printWinner(Player player) {
 		
 		JOptionPane.showMessageDialog(this, "Winner is " + player.getName());
-		game.reset();
 		
 	}
 
