@@ -10,6 +10,10 @@ public class Player {
 	private DeckOfCards deck;
 	private List<Card> handOfCards;
 	
+	/*
+	 * Creates a player.
+	 * @param name The name of the player.
+	 */
 	public Player(String name) {
 		
 		this.name = name;
@@ -17,6 +21,10 @@ public class Player {
 		
 	}
 	
+	/*
+	 * Sets a deck to the player.
+	 * @param deck The deck that the player will use.
+	 */
 	public void setDeck(DeckOfCards deck) {
 		
 		this.deck = deck;
@@ -47,12 +55,19 @@ public class Player {
 		
 	}
 	
+	/*
+	 * Returns the hand of the player.
+	 * @return a list of cards that are in the hand of the player.
+	 */
 	public List<Card> getCards() {
 		
 		return handOfCards;
 		
 	}
 	
+	/*
+	 * A player draws a card and recalculates his score.
+	 */
 	public void hit() {
 		
 		handOfCards.add(deck.deal());
@@ -60,18 +75,31 @@ public class Player {
 		
 	}
 	
+	/*
+	 * Returns the score of the player.
+	 * @return the score of the player.
+	 */
 	public int getScore() {
 		
 		return score;
 		
 	}
 	
+	/*
+	 * Returns the name of the player.
+	 * @return the name of the player.
+	 */
 	public String getName() {
 		
 		return name;
 		
 	}
 	
+	/*
+	 * 
+	 * @return a string representation of a player.
+	 */
+	@Override
 	public String toString() {
 		
 		return name;
