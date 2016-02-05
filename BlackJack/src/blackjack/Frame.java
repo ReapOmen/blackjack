@@ -1,5 +1,6 @@
 package blackjack;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -20,7 +22,7 @@ public class Frame extends JFrame {
 	private JButton jbHit, jbStop;
 	private JPanel jpPlayer1, jpPlayer2, jpPlayer1Cards, jpPlayer2Cards,  jpCards;
 	private JLabel jlPlayer1Score, jlPlayer2Score;
-	private ArrayList<String> cards;
+	private ArrayList<Pair<String, Image>> cards;
 	
 	/**
 	 * Constructs the main window of the BlackJack game.
@@ -47,7 +49,7 @@ public class Frame extends JFrame {
 		jpPlayer2.setLayout(new FlowLayout());
 		createPlayer2();
 		
-		setPreferredSize(new Dimension(400, 200));
+		setPreferredSize(new Dimension(600, 400));
 		pack();
 		setVisible(true);
 		
@@ -89,10 +91,24 @@ public class Frame extends JFrame {
 	private void printCardsPlayer1() {
 		
 		//adding cards to players1 panel
-		cards = (ArrayList<String>) game.getCards(true);
-		for(String s : cards) {
-						
-			jpPlayer1Cards.add(new JLabel(s));
+		cards = (ArrayList<Pair<String, Image>>) game.getCards(true);
+		for(Pair<String, Image> s : cards) {
+			
+			JLabel jlCard = new JLabel();
+
+			if(s.getValue() != null) {
+				
+				jlCard.setIcon(new ImageIcon(s.getValue()));
+				jpPlayer1Cards.add(jlCard);
+				
+			}
+			else {
+				
+				jlCard.setText(s.getKey());
+				jpPlayer1Cards.add(jlCard);
+				
+			}
+				
 						
 		}
 		
@@ -126,11 +142,24 @@ public class Frame extends JFrame {
 	private void printCardsPlayer2() {
 		
 		//adding cards to players2 panel
-		cards = (ArrayList<String>) game.getCards(false);
-		for(String s : cards) {
-						
-			jpPlayer2Cards.add(new JLabel(s));
-						
+		cards = (ArrayList<Pair<String, Image>>) game.getCards(false);
+		for(Pair<String, Image> s : cards) {			
+			
+			JLabel jlCard = new JLabel();
+
+			if(s.getValue() != null) {
+				
+				jlCard.setIcon(new ImageIcon(s.getValue()));
+				jpPlayer2Cards.add(jlCard);
+				
+			}
+			else {
+				
+				jlCard.setText(s.getKey());
+				jpPlayer2Cards.add(jlCard);
+				
+			}
+		
 		}
 		
 	}
@@ -140,7 +169,14 @@ public class Frame extends JFrame {
 	 */
 	public void recordCard() {
 		
-		jpPlayer2Cards.add(new JLabel(game.getLastCardPlayed()), BorderLayout.SOUTH);
+		JLabel jlCard = new JLabel();
+		Pair<String, Image> p = game.getLastCardPlayed();
+		if(p.getValue() != null)
+			jlCard.setIcon(new ImageIcon(p.getValue()));
+		else
+			jlCard.setText(p.getKey());
+		
+		jpPlayer2Cards.add(jlCard , BorderLayout.SOUTH);
 		repaint();
 		jlPlayer2Score.setText(game.getScore(false)); 
 		
@@ -156,8 +192,20 @@ public class Frame extends JFrame {
 			if(e.getSource() == jbHit) {
 				
 				game.play(); // If a player wants to hit, the game continues.
-
-				jpPlayer1Cards.add(new JLabel(game.getLastCardPlayed()), BorderLayout.SOUTH);
+				JLabel jlCard = new JLabel();
+				Pair<String, Image> p = game.getLastCardPlayed();
+				if(p.getValue() != null) {
+					
+					jlCard.setIcon(new ImageIcon(p.getValue()));
+					jpPlayer1Cards.add(jlCard, BorderLayout.SOUTH);
+				
+				}
+				else {
+					
+					jlCard.setText(p.getKey());
+					jpPlayer1Cards.add(jlCard, BorderLayout.SOUTH);
+					
+				}
 				repaint();
 				jlPlayer1Score.setText(game.getScore(true)); 
 				game.checkWinner();

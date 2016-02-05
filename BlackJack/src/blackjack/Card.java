@@ -21,7 +21,9 @@ public class Card {
 		cardType = type;
 		try {
 			
-			image = ImageIO.read(getClass().getResource("resources/"+cardType+value));
+			image = ImageIO.read(getClass().getResource("pokercards/"+value+cardType+".png"));
+			image = image.getScaledInstance(image.getWidth(null) - 150, 
+					image.getHeight(null) - 200 , Image.SCALE_SMOOTH);
 			
 		}
 		catch(IOException e) {

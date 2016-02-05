@@ -1,5 +1,6 @@
 package blackjack;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +58,28 @@ public class Game {
 	 * Checks for the last card played on the board.
 	 * @return a String representations of the last card played.
 	 */
-	public String getLastCardPlayed() {
+	public Pair<String, Image> getLastCardPlayed() {
 		
-		if(turnOfPlayer1)
-			return player1.getCards().get(player1.getCards().size() - 1).toString();
-		else
-			return player2.getCards().get(player2.getCards().size() - 1).toString();
+		Pair<String, Image> p;
+		
+		if(turnOfPlayer1) {
+			
+			int lastIndex = player1.getCards().size() - 1;
+			p = new Pair<String, Image>(player1.getCards().get(lastIndex).toString(), 
+					player1.getCards().get(lastIndex).toImage());
+			
+			return p;
+			
+		}
+		else {
+			
+			int lastIndex = player2.getCards().size() - 1;
+			p = new Pair<String, Image>(player2.getCards().get(lastIndex).toString(), 
+					player2.getCards().get(lastIndex).toImage());
+			
+			return p;
+			
+		}
 
 		
 	}
@@ -72,7 +89,7 @@ public class Game {
 	 * @param human If the player is human or the computer, aka player2.
 	 * @return a list of cards in it's string representation.
 	 */
-	public List<String> getCards(boolean human) {
+	public List<Pair<String, Image>> getCards(boolean human) {
 		
 		ArrayList<Card> cards = null;
 		
@@ -81,10 +98,10 @@ public class Game {
 		else
 			cards = (ArrayList<Card>) player2.getCards();
 
-		ArrayList<String> cards2 = new ArrayList<String>();
+		ArrayList<Pair<String, Image>> cards2 = new ArrayList<Pair<String, Image>>();
 		for(Card c : cards) {
 			
-			cards2.add(c.toString());
+			cards2.add(new Pair(c.toString(), c.toImage()));
 			
 		}
 		
